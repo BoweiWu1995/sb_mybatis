@@ -1,0 +1,30 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: sb_mybatis
+  datasource:
+      url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+
+
+mybatis:
+  type-aliases-package: com.mydemo.model
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*
+
+swagger:
+  title: spring-boot-starter-swagger
+  description: Starter for swagger 2.x
+  version: 1.4.0.RELEASE
+  license: Apache License, Version 2.0
+  license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+  terms-of-service-url: https://github.com/dyc87112/spring-boot-starter-swagger
+  contact:
+    name: didi
+    url: http://blog.didispace.com
+    email: dyc87112@qq.com
+  base-package: com.mydemo
+  base-path: /**

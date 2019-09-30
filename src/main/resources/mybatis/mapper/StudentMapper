@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mydemo.mapper.StudentMapper" >
+
+    <resultMap id="BaseResultMap" type="com.mydemo.model.Student" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="create_date" property="createDate" jdbcType="TIME"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, nick_name, age, create_date
+    </sql>
+
+    <select id="getAll" resultMap="BaseResultMap"  >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM student
+    </select>
+
+    <select id="getStudent" parameterType="java.lang.String" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+        student
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertStudent" parameterType="com.mydemo.model.Student">
+        <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+            select uuid() as id from dual
+        </selectKey>
+        INSERT INTO
+        student
+        (id, nick_name, age, create_date)
+        VALUES
+        (#{id}, #{nickName}, #{age}, #{createDate})
+    </insert>
+
+    <update id="updateStudent" parameterType="com.mydemo.model.Student">
+        UPDATE
+        student
+        SET
+        <if test="nickName != null">nick_name = #{nickName},</if>
+        <if test="age != null">age = #{age},</if>
+        <if test="createDate != null">create_date = #{createDate}</if>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteStudent" parameterType="java.lang.String">
+        DELETE FROM
+        student
+        WHERE
+        id = #{id}
+    </delete>
+
+</mapper>
